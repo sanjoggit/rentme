@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Segment, Grid, Header, Button } from 'semantic-ui-react';
+import { Form, Segment, Grid, Header, Button, Label } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/index';
@@ -14,6 +14,11 @@ import TextInput from '../Home/HomeForm/TextInput';
 import moment from 'moment';
 import cuid from 'cuid';
 
+const errorStyle = {
+  background: 'red',
+  color: 'white',
+  borderRadius: '4px'
+};
 
 const validate = combineValidators({
   username: isRequired({message: "user name is required"}),
@@ -29,6 +34,13 @@ const validate = combineValidators({
 
 class RegisterForm extends Component {
 
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated){
+      this.props.history.push('/');
+    }
+  }
+
+
   handleSubmit = (values)=>{
     values.date = moment(values.date).format();
       const newUser = {
@@ -40,7 +52,7 @@ class RegisterForm extends Component {
     this.props.registerUser(newUser);
   }
   render() {
-    const {pristine, submitting} = this.props;
+    const {pristine, submitting, errors} = this.props;
     return (
       <Grid columns={1} stackable centered verticalAlign={'middle'} style={{ height: '100vh' }} >
         <Grid.Column width={6} >
@@ -60,7 +72,7 @@ class RegisterForm extends Component {
               type="text"
               component={TextInput}
               placeholder="E-mail address" 
-            />
+            />{errors ? <span style={errorStyle}>{errors.email}</span> : 'null'}
             <Field
               icon="lock"
               name="password" 
@@ -84,5 +96,11 @@ class RegisterForm extends Component {
   }
 }
 
+const mapStateToProps = state =>{
+  return{
+    auth: state.auth,
+    errors: state.errors
+  }
+}
 
-export default connect(null, {registerUser})(reduxForm({form: 'registerForm', validate})(RegisterForm));
+export default connect(mapStateToProps, {registerUser})(reduxForm({form: 'registerForm', validate})(RegisterForm));

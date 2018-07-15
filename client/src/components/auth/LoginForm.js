@@ -17,6 +17,12 @@ const validate = combineValidators({
 
 class RegisterForm extends Component {
 
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated){
+      this.props.history.push('/');
+    }
+  }
+
   handleSubmit = (values)=>{    
     this.props.loginUser(values);
     this.props.history.push('/');
@@ -26,7 +32,7 @@ class RegisterForm extends Component {
     return (
       <Grid columns={1} stackable centered verticalAlign={'middle'} style={{ height: '100vh' }} >
         <Grid.Column width={6} >
-        <Header size='large' textAlign="center">Sign-up Form</Header>
+        <Header size='large' textAlign="center">Login Form</Header>
           <Segment>
           <Form onSubmit={this.props.handleSubmit(this.handleSubmit)}>  
             <Field
@@ -52,5 +58,10 @@ class RegisterForm extends Component {
   }
 }
 
+const mapStateToProps = state =>{
+  return{
+    auth: state.auth
+  }
+}
 
-export default connect(null, {loginUser})(reduxForm({form: 'registerForm', validate})(RegisterForm));
+export default connect(mapStateToProps, {loginUser})(reduxForm({form: 'registerForm', validate})(RegisterForm));

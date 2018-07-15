@@ -1,4 +1,4 @@
-import { ADD_HOME, UPDATE_HOME, DELETE_HOME, REGISTER_USER, SET_CURRENT_USER } from '../constants/constants';
+import { ADD_HOME, UPDATE_HOME, DELETE_HOME, GET_ERRORS, SET_CURRENT_USER } from '../constants/constants';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
@@ -30,11 +30,11 @@ export const deleteHome = (homeId)=>{
 //Register User
 export const registerUser = (user)=>dispatch=>{
   axios.post('/api/users/register', user)
-  .then(res=>dispatch({
-    type: REGISTER_USER,
-    payload: user
-  }))
-  .catch(err=>console.log(err)); 
+  .then(res=>console.log(res.data))
+  .catch(err=> dispatch({
+    type: GET_ERRORS,
+    payload: err.response.data
+  })); 
 }
 
 //Login-Get User Token
