@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.ui.attached.menu{
+  background-color: #034f84 !important;
+}
+
+.logo img{
+  width: 80px !important;
+}
+.ui.icon.input{
+  width: 50%;
+}
+.ui.search .prompt{
+  border-radius: 2px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important
+}
+.ui.container{
+  margin-top: 5%;
+  width: 90% !important;
+}
+.invalid{
+  border-radius: 5px;
+  border: 1px solid red;
+}
+.error-text{
+  color: red;
+}
