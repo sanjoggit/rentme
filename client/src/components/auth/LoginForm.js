@@ -9,6 +9,12 @@ import {
 } from 'revalidate';
 import TextInput from '../Home/HomeForm/TextInput';
 
+const errorStyle = {
+  background: 'red',
+  color: 'white',
+  borderRadius: '4px'
+};
+
 
 const validate = combineValidators({
   email: isRequired({message: "email is required"}),  
@@ -24,11 +30,10 @@ class RegisterForm extends Component {
   }
 
   handleSubmit = (values)=>{    
-    this.props.loginUser(values);
-    this.props.history.push('/');
+    this.props.loginUser(values, this.props.history);
   }
   render() {
-    const {pristine, submitting} = this.props;
+    const {pristine, submitting, errors} = this.props;
     return (
       <Grid columns={1} stackable centered verticalAlign={'middle'} style={{ height: '100vh' }} >
         <Grid.Column width={6} >
@@ -41,14 +46,14 @@ class RegisterForm extends Component {
               type="text"
               component={TextInput}
               placeholder="E-mail address" 
-            />
+            /> {errors ? <span style={errorStyle}>{errors.email}</span> : ''}
             <Field
               icon="lock"
               name="password" 
               type="password"
               component={TextInput}
               placeholder="Password" 
-            />
+            /> {errors ? <span style={errorStyle}>{errors.password}</span> : ''}
             <Button content="Login" color="green" fluid disabled={pristine || submitting} />
           </Form>
           </Segment>
@@ -60,7 +65,8 @@ class RegisterForm extends Component {
 
 const mapStateToProps = state =>{
   return{
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
   }
 }
 

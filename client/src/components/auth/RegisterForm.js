@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Segment, Grid, Header, Button, Label } from 'semantic-ui-react';
+import { Form, Segment, Grid, Header, Button } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/index';
@@ -49,7 +49,7 @@ class RegisterForm extends Component {
         ...values,
             
       }
-    this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history);
   }
   render() {
     const {pristine, submitting, errors} = this.props;

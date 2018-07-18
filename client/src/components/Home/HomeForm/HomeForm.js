@@ -1,8 +1,10 @@
+/*global google*/
 import React, { Component } from 'react';
 import { Container, Segment, Form, Grid, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addHome, updateHome } from '../../../actions/index';
 import { reduxForm, Field } from 'redux-form';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {
   composeValidators,
   combineValidators,
@@ -11,8 +13,11 @@ import {
 } from 'revalidate';
 import TextInput from './TextInput';
 import TextArea from './TextArea';
+import PlaceInput from './PlaceInput';
 import cuid from 'cuid';
 import moment from 'moment';
+import Script from 'react-load-script';
+
 
 const containerStyle = {
   marginTop: '20px'
@@ -28,13 +33,47 @@ const validate = combineValidators({
   floor: isRequired({message: "Floor level is required"}),
   phone: isRequired({message: "Phone no. is required"}),
   city: isRequired({message: "City is required"}),
-  address: isRequired({message: "Address no. is required"})
+  address: isRequired({message: "Address is required"})
 })
 
 class HomeForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      scriptLoaded: false,
+      cityLatLng: {},
+      addressLatLng: {}
+    }
+  }
 
+  handleScriptLoaded = ()=>{
+    this.setState({
+      scriptLoaded: true
+    })
+  }
+
+  handleCitySelect = (selectedCity)=>{
+    geocodeByAddress(selectedCity).then(results=>getLatLng(results[0])).then(latLng=>{
+      this.setState({
+        cityLatLng: latLng
+      })
+    }).then(()=>{
+      this.props.change('city', selectedCity)
+    }).catch(err=>console.log(err));
+  }
+
+  handleAddressSelect = (selectedAddress)=>{
+    geocodeByAddress(selectedAddress).then(results=>getLatLng(results[0])).then(latLng=>{
+      this.setState({
+        addressLatLng: latLng
+      })
+    }).then(()=>{
+      this.props.change('address', selectedAddress)
+    }).catch(err=>console.log(err));
+  }
 
   handleSubmit = (values)=>{
+    values.addressLatLng = this.state.addressLatLng;
     if(values.id){
       this.props.updateHome(values);
     } else{
@@ -54,6 +93,10 @@ class HomeForm extends Component {
     return (
       <Container style={containerStyle}>
         <Grid>
+        <Script
+          url="https://maps.googleapis.com/maps/api/js?key=AIzaSyBixMPuzcI8hePeazSW-JLu5QSHy986i0s&libraries=places"
+          onLoad={this.handleScriptLoaded}
+         />
           <Grid.Column width={10}>
             <Segment>
               <Form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
@@ -91,18 +134,28 @@ class HomeForm extends Component {
                       component={TextInput} 
                       placeholder="Enter phone number" 
                       />
+                      
                     <Field 
                       label="City"
                       name="city" 
                       placeholder="City"
-                      component={TextInput} 
+                      searchOptions={{types: ['(cities)']}}
+                      onSelect={this.handleCitySelect}
+                      component={PlaceInput}
                       />
+                    {this.state.scriptLoaded &&
                     <Field
                       label="Address" 
                       name="address" 
                       placeholder="Address"
-                      component={TextInput} 
-                      />
+                      searchOptions={{
+                        location: new google.maps.LatLng(this.state.cityLatLng),
+                        radius: 100,
+                        types: ['establishment']
+                        }}
+                        onSelect={this.handleAddressSelect}
+                      component={PlaceInput} 
+                      />}
                     <Field 
                       label="Description"
                       name="description"

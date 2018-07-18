@@ -2,6 +2,7 @@ import { ADD_HOME, UPDATE_HOME, DELETE_HOME, GET_ERRORS, SET_CURRENT_USER } from
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
+import { toastr } from 'react-redux-toastr';
 
 //home actions
 export const addHome = (home)=>{
@@ -28,17 +29,21 @@ export const deleteHome = (homeId)=>{
 //auth actions
 
 //Register User
-export const registerUser = (user)=>dispatch=>{
+export const registerUser = (user, history)=>dispatch=>{
   axios.post('/api/users/register', user)
-  .then(res=>console.log(res.data))
+  .then(res=> {toastr.success('Success!', 'Successfully Registered');
+    history.push('/login');
+    }
+  )    
   .catch(err=> dispatch({
     type: GET_ERRORS,
     payload: err.response.data
-  })); 
+  }));
+  return {type: GET_ERRORS, payload: user} 
 }
 
 //Login-Get User Token
-export const loginUser = (user)=>dispatch=>{
+export const loginUser = (user, history)=>dispatch=>{
   axios.post('/api/users/login', user)
   .then(res=>{
     //Save to localStorage
@@ -50,8 +55,12 @@ export const loginUser = (user)=>dispatch=>{
     const decoded = jwt_decode(token);
     //set current user
     dispatch(setCurrentUser(decoded));
+    history.push('/');
   })
-  .catch(err=>console.log(err));
+  .catch(err=>dispatch({
+    type: GET_ERRORS,
+    payload: err.response.data
+  }));
 }
 
 //Set logged in User
