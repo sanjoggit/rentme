@@ -108,7 +108,7 @@ class HomeForm extends Component {
                       placeholder="Write in one sentence about your home" 
                       />
                     <Field 
-                      label="Price"
+                      label="Price (In Rs.)"
                       type="number" 
                       name="price"
                       component={TextInput} 

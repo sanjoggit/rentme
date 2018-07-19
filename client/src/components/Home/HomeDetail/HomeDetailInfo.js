@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react'
 import { Segment, Button, Icon, Grid } from 'semantic-ui-react';
 import format from 'date-fns/format';
+import HomeDetailMap from './HomeDetailMap';
 
+class HomeDetailInfo extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      showMap: false
+    }
+  }
 
-const HomeDetailInfo = ({home}) => {
-  return (
-    <Segment.Group>
+  showMapToggle = ()=>{
+    this.setState({
+      showMap: !this.state.showMap
+    })
+  }
+  render() {
+    const {home} = this.props;
+    return (
+      <Segment.Group>
       <Segment>
         <Grid>
           <Grid.Column width={1}>
@@ -58,12 +72,16 @@ const HomeDetailInfo = ({home}) => {
             {home.address}
           </Grid.Column>
           <Grid.Column width={5}>
-            <Button floated="right" color={'green'}>Show Map</Button>  
+            <Button onClick={this.showMapToggle} floated="right" color={'green'}>{this.state.showMap ? 'Hide Map' : 'Show Map'}</Button>  
           </Grid.Column>
         </Grid>
       </Segment>
+      {this.state.showMap &&
+      <HomeDetailMap lat={home.addressLatLng.lat} lng={home.addressLatLng.lng} />}
     </Segment.Group>
-  )
+    )
+  }
 }
+
 
 export default HomeDetailInfo;

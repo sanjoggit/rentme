@@ -10,6 +10,7 @@ export const addHome = (home)=>{
     type: ADD_HOME,
     payload: home
   }
+
 }
 
 export const updateHome = (home)=>{

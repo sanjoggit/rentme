@@ -40,7 +40,7 @@ class Navbar extends Component {
 				Rent-Me
 			</Menu.Item>
 			<Menu.Item as={Link} to="/" name="Homes" />
-			<Menu.Item><Button as={Link} to="/createPost" inverted positive content="Create Ad" /></Menu.Item>
+			{isAuthenticated &&<Menu.Item><Button as={Link} to="/createPost" color="orange" content="Create Ad" /></Menu.Item>}
 				{isAuthenticated ? signedInMenu : signedOutMenu}
 		</Menu>
 		)
