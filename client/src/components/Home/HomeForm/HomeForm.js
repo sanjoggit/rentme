@@ -176,7 +176,7 @@ class HomeForm extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    initialValues: state.homes.find((home) => home.id === props.match.params.id)
+    initialValues: state.homes.homes.find((home) => home.id === props.match.params.id)
   }
 }
 

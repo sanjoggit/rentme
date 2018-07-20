@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomeForm from './components/Home/HomeForm/HomeForm';
 import RegisterForm from './components/auth/RegisterForm';
 import LoginForm from './components/auth/LoginForm';
+import PrivateRoute from './common/PrivateRoute';
 
 class App extends Component {
   render() {
@@ -18,7 +19,7 @@ class App extends Component {
             <Route path="/homes" component={HomeDashboard} />
             <Route path="/home/:id" component={HomeDetail} />
             <Route path="/edit/:id" component={HomeForm} />
-            <Route path="/createPost" component={HomeForm} />
+            <PrivateRoute path="/createPost" component={HomeForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
           </Switch>

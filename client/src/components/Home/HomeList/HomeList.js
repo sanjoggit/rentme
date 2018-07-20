@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 import { Card, Icon, Image, Button, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getHomes } from '../../../actions/index';
 import format from 'date-fns/format';
 
 
 
 class HomeList extends Component {
 
+  componentDidMount(){
+    this.props.getHomes();
+  }
+
   render() {
-    const home = this.props.homes && this.props.homes.map(home=>(    
-    <Grid.Column key={home.id}>  
+    const home = this.props.homes.homes && this.props.homes.homes.map(home=>(    
+    <Grid.Column key={home._id}>  
         <Card >
           <Image src="/assets/homes/home1.png" />
           <Card.Content>
@@ -45,4 +50,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps)(HomeList);
+export default connect(mapStateToProps, {getHomes})(HomeList);

@@ -1,16 +1,32 @@
-import { ADD_HOME, UPDATE_HOME, DELETE_HOME, GET_ERRORS, SET_CURRENT_USER } from '../constants/constants';
+import { ADD_HOME, GET_HOMES, UPDATE_HOME, DELETE_HOME, GET_ERRORS, SET_CURRENT_USER } from '../constants/constants';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 import { toastr } from 'react-redux-toastr';
 
 //home actions
-export const addHome = (home)=>{
-  return{
-    type: ADD_HOME,
-    payload: home
-  }
 
+//add Home
+export const addHome = (home)=>dispatch=>{
+  axios.post('/api/posts', home)
+  .then(res=>dispatch({
+    type: ADD_HOME,
+    payload: res.data
+  }))
+  .catch(err=>console.log(err))
+}
+
+//get Homes
+export const getHomes = ()=>dispatch=>{
+  axios.get('/api/posts')
+  .then(res=>dispatch({
+    type: GET_HOMES,
+    payload: res.data
+  }))
+  .catch(err=>dispatch({
+    type: GET_HOMES,
+    payload: null
+  }))
 }
 
 export const updateHome = (home)=>{
