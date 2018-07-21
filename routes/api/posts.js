@@ -36,4 +36,21 @@ router.get('/', (req, res)=>{
     .catch(err=>res.status(404).json({nohomesfound: "No homes found"}));
 })
 
+// @route GET api/posts/:id
+// @desc get post by id
+// @access public
+router.get('/:id', (req, res)=>{
+  Home.findById(req.params.id)
+    .then(homes=>res.json(homes))
+    .catch(err=>res.status(404).json({nohomefound: "No homes found with that id"}));
+})
+
+// @route DELETE api/posts/:id
+// @desc delete post by id
+// @access private
+// router.get('/:id', passport.authenticate("jwt", { session: false }), (req, res)=>{
+// TODO: 
+// })
+
+
 module.exports = router;

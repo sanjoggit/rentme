@@ -1,4 +1,11 @@
-import { ADD_HOME, UPDATE_HOME, DELETE_HOME, GET_HOMES } from '../constants/constants';
+import { 
+  ADD_HOME, 
+  UPDATE_HOME, 
+  DELETE_HOME, 
+  GET_HOMES, 
+  GET_HOME,
+  HOME_LOADING
+} from '../constants/constants';
 
 const initialState = {
   homes: [],
@@ -8,6 +15,11 @@ const initialState = {
 
 export const HomeReducer = (state=initialState, action)=>{
   switch(action.type){
+    case HOME_LOADING:
+      return{
+        ...state,
+        loading: true
+      }
     case ADD_HOME:
       return{
         ...state,
@@ -17,6 +29,12 @@ export const HomeReducer = (state=initialState, action)=>{
       return{
         ...state,
         homes: action.payload,
+        loading: false
+      };
+    case GET_HOME:
+      return{
+        ...state,
+        home: action.payload,
         loading: false
       }
     case UPDATE_HOME:

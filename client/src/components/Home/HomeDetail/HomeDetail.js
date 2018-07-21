@@ -2,29 +2,31 @@ import React, { Component } from 'react';
 import { Container, Grid, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteHome } from '../../../actions/index';
+import { deleteHome, getHome } from '../../../actions/index';
 import HomeDetailInfo from './HomeDetailInfo';
 import HomeDetailHeader from './HomeDetailHeader';
 
 
-export class HomeDetail extends Component {
+class HomeDetail extends Component {
 
-  handleDelete = (homeId)=>{
-    this.props.deleteHome(homeId);
-    this.props.history.push('/');
+  // handleDelete = (homeId)=>{
+  //   this.props.deleteHome(homeId);
+  //   this.props.history.push('/');
+  // }
+  componentDidMount(){
+      this.props.getHome(this.props.match.params.id);
   }
 
   render() {
-    const homeId = this.props.match.params.id;
-    const home = this.props.homes.filter(home=>home.id === homeId)[0];
+    const home = this.props.homes.home;
+    const {isAuthenticated} = this.props.auth;    
     return (
       <Container>
-        
         <Grid>
           <Grid.Column width={10}>
             <Button content="Back" onClick={()=>this.props.history.push('/')} />
-            <Button content="Delete" color="red" floated="right" onClick={()=>this.handleDelete(homeId)} />
-            <Button content="Edit" color="green" floated='right' as={Link} to={`/edit/${home.id}`} />
+            {isAuthenticated && <Button content="Delete" color="red" floated="right" onClick={()=>this.handleDelete(home._id)} />}
+            {isAuthenticated && <Button content="Edit" color="green" floated='right' as={Link} to={`/edit/${home._id}`} />}
             <HomeDetailHeader home={home} />
             <HomeDetailInfo home={home} />
           </Grid.Column>
@@ -39,8 +41,10 @@ export class HomeDetail extends Component {
 
 const mapStateToProps = state =>{
   return{
-    homes: state.homes
+    homes: state.homes,
+    auth: state.auth,
+    errors: state.errors
   }
 }
 
-export default connect(mapStateToProps, {deleteHome})(HomeDetail);
+export default connect(mapStateToProps, {deleteHome, getHome})(HomeDetail);

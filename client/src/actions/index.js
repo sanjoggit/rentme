@@ -1,10 +1,19 @@
-import { ADD_HOME, GET_HOMES, UPDATE_HOME, DELETE_HOME, GET_ERRORS, SET_CURRENT_USER } from '../constants/constants';
+import { 
+  ADD_HOME,
+  GET_HOMES,
+  GET_HOME, 
+  UPDATE_HOME, 
+  DELETE_HOME, 
+  GET_ERRORS, 
+  SET_CURRENT_USER, 
+  HOME_LOADING
+} from '../constants/constants';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 import { toastr } from 'react-redux-toastr';
 
-//home actions
+//**********************home actions***********************************
 
 //add Home
 export const addHome = (home)=>dispatch=>{
@@ -18,6 +27,7 @@ export const addHome = (home)=>dispatch=>{
 
 //get Homes
 export const getHomes = ()=>dispatch=>{
+  dispatch(setHomeLoading());
   axios.get('/api/posts')
   .then(res=>dispatch({
     type: GET_HOMES,
@@ -27,6 +37,20 @@ export const getHomes = ()=>dispatch=>{
     type: GET_HOMES,
     payload: null
   }))
+}
+
+//get Home
+export const getHome = (id)=>dispatch=>{
+  dispatch(setHomeLoading());
+  axios.get(`/api/posts/${id}`)
+  .then(res=>dispatch({
+    type: GET_HOME,
+    payload: res.data
+  }))
+  .catch(err=> dispatch({
+    type: GET_ERRORS,
+    payload: err.response.data
+  }));
 }
 
 export const updateHome = (home)=>{
@@ -43,7 +67,13 @@ export const deleteHome = (homeId)=>{
   }
 }
 
-//auth actions
+export const setHomeLoading = ()=>{
+  return{
+    type: HOME_LOADING
+  }
+}
+
+//****************auth actions***************************
 
 //Register User
 export const registerUser = (user, history)=>dispatch=>{
