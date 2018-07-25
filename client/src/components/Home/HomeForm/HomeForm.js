@@ -14,8 +14,6 @@ import {
 import TextInput from './TextInput';
 import TextArea from './TextArea';
 import PlaceInput from './PlaceInput';
-import cuid from 'cuid';
-import moment from 'moment';
 import Script from 'react-load-script';
 
 
@@ -77,11 +75,9 @@ class HomeForm extends Component {
     if(values.id){
       this.props.updateHome(values);
     } else{
-      values.date = moment(values.date).format();
       const newHome = {
-        date: new Date(),
         ...values,
-        id: cuid()      
+        addressLatLng: this.state.addressLatLng
       }
     this.props.addHome(newHome);
     }    
@@ -89,6 +85,7 @@ class HomeForm extends Component {
   }
 
   render() {
+    console.log(this.state.addressLatLng);
     const {pristine, submitting, reset} = this.props;
     return (
       <Container style={containerStyle}>
@@ -151,7 +148,7 @@ class HomeForm extends Component {
                       searchOptions={{
                         location: new google.maps.LatLng(this.state.cityLatLng),
                         radius: 100,
-                        types: ['establishment']
+                        types: ['address']
                         }}
                         onSelect={this.handleAddressSelect}
                       component={PlaceInput} 

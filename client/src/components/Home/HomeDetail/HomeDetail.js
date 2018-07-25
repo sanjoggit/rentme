@@ -9,10 +9,6 @@ import HomeDetailHeader from './HomeDetailHeader';
 
 class HomeDetail extends Component {
 
-  // handleDelete = (homeId)=>{
-  //   this.props.deleteHome(homeId);
-  //   this.props.history.push('/');
-  // }
   componentDidMount(){
       this.props.getHome(this.props.match.params.id);
   }
@@ -25,8 +21,8 @@ class HomeDetail extends Component {
         <Grid>
           <Grid.Column width={10}>
             <Button content="Back" onClick={()=>this.props.history.push('/')} />
-            {isAuthenticated && <Button content="Delete" color="red" floated="right" onClick={()=>this.handleDelete(home._id)} />}
-            {isAuthenticated && <Button content="Edit" color="green" floated='right' as={Link} to={`/edit/${home._id}`} />}
+            {/* {isAuthenticated && <Button content="Delete" color="red" floated="right" onClick={()=>this.handleDelete(home._id)} />}
+            {isAuthenticated && <Button content="Edit" color="green" floated='right' as={Link} to={`/edit/${home._id}`} />} */}
             <HomeDetailHeader home={home} />
             <HomeDetailInfo home={home} />
           </Grid.Column>

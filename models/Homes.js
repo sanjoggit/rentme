@@ -19,6 +19,9 @@ const HomeSchema = new Schema({
   floor: {
     type: Number
   },
+  phone: {
+    type: Number
+  },
   city: {
     type: String
   },
@@ -31,6 +34,10 @@ const HomeSchema = new Schema({
   date:{
     type: Date,
     default: Date.now
+  },
+  addressLatLng: {
+    type: Map,
+    of: Number
   }
 })
 

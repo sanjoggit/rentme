@@ -1,7 +1,8 @@
 import { 
   ADD_HOME,
   GET_HOMES,
-  GET_HOME, 
+  GET_HOME,
+  GET_HOME_BY_USER, 
   UPDATE_HOME, 
   DELETE_HOME, 
   GET_ERRORS, 
@@ -53,6 +54,21 @@ export const getHome = (id)=>dispatch=>{
   }));
 }
 
+//get Home By user
+export const getUserHome = ()=>dispatch=>{
+  dispatch(setHomeLoading());
+  axios.get('/api/profile')
+  .then(res=>dispatch({
+    type: GET_HOME_BY_USER,
+    payload: res.data
+  }))
+  .catch(err=> dispatch({
+    type: GET_ERRORS,
+    payload: null
+  }));
+}
+
+
 export const updateHome = (home)=>{
   return{
     type: UPDATE_HOME,
@@ -60,11 +76,11 @@ export const updateHome = (home)=>{
   }
 }
 
-export const deleteHome = (homeId)=>{
-  return{
+export const deleteHome = (id)=>dispatch=>{
+  axios.delete(`/api/profile/${id}`).then(res=>dispatch({
     type: DELETE_HOME,
-    payload: homeId
-  }
+    payload: id
+  })).catch(err=>console.log(err))
 }
 
 export const setHomeLoading = ()=>{
@@ -127,3 +143,4 @@ export const logoutUser = ()=>dispatch=>{
   //Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 }
+

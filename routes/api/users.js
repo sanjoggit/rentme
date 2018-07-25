@@ -58,7 +58,7 @@ router.post('/login', (req, res)=>{
     bcrypt.compare(password, user.password).then(isMatch=>{
       if(isMatch){
         //create JWT Payload
-        const payload = {id: user.id, username: user.username, avatar: user.avatar};
+        const payload = {id: user.id, username: user.username, avatar: user.avatar, date: user.date};
         //Sign Token
         jwt.sign(payload, 'secret', {expiresIn: 3600}, (err, token)=>{
           res.json({success: true, token: 'Bearer ' + token})
@@ -80,5 +80,7 @@ router.get('/current', passport.authenticate('jwt', {session: false}), (req, res
     email: req.user.email
   });
 })
+
+
 
 module.exports = router;

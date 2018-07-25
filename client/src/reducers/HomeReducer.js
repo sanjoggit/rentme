@@ -1,7 +1,6 @@
 import { 
   ADD_HOME, 
   UPDATE_HOME, 
-  DELETE_HOME, 
   GET_HOMES, 
   GET_HOME,
   HOME_LOADING
@@ -40,8 +39,7 @@ export const HomeReducer = (state=initialState, action)=>{
     case UPDATE_HOME:
       return[...state.filter(home=>home.id !== action.payload.id), Object.assign({}, action.payload)];
 
-    case DELETE_HOME:
-      return[...state.filter(home=>home.id !== action.payload)];
+
 
     default:
       return state;

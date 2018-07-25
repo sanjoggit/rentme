@@ -21,7 +21,7 @@ class Navbar extends Component {
       <Dropdown pointing="top right" text={user.username}>
         <Dropdown.Menu>
           <Dropdown.Item as={Link} to="/createPost" text="Create Ad" icon="plus"/>
-          <Dropdown.Item text="My Profile" icon="user"/>
+          <Dropdown.Item text="My Profile" icon="user" as={Link} to={`/${user.username}`} />
           <Dropdown.Item text="Sign Out" icon="power" onClick={this.handleSignOut} />
         </Dropdown.Menu>
       </Dropdown>

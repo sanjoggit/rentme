@@ -19,9 +19,11 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res)=>{
     price: req.body.price,
     rooms: req.body.rooms,
     floor: req.body.floor,
+    phone: req.body.phone,
     city: req.body.city,
     address: req.body.address,
-    description: req.body.desc
+    description: req.body.description,
+    addressLatLng: req.body.addressLatLng
   });
   newPost.save().then(post=>res.json(post)).catch(err=>console.log(err));
 });
@@ -45,12 +47,8 @@ router.get('/:id', (req, res)=>{
     .catch(err=>res.status(404).json({nohomefound: "No homes found with that id"}));
 })
 
-// @route DELETE api/posts/:id
-// @desc delete post by id
-// @access private
-// router.get('/:id', passport.authenticate("jwt", { session: false }), (req, res)=>{
-// TODO: 
-// })
+
+
 
 
 module.exports = router;
