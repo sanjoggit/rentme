@@ -16,7 +16,7 @@ class PlaceInput extends Component {
   handleChange = (city)=>{
     this.setState({
       city
-    })
+    }) 
   }
   render() {
     const { label, placeholder, searchOptions, onSelect, meta:{touched, error}} = this.props;

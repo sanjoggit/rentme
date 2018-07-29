@@ -72,8 +72,8 @@ class HomeForm extends Component {
 
   handleSubmit = (values)=>{
     values.addressLatLng = this.state.addressLatLng;
-    if(values.id){
-      this.props.updateHome(values);
+    if(values._id){
+      this.props.updateHome(values._id);
     } else{
       const newHome = {
         ...values,
@@ -173,7 +173,7 @@ class HomeForm extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    initialValues: state.homes.homes.find((home) => home.id === props.match.params.id)
+    initialValues: state.profile.profileHomes.find((home) => home._id === props.match.params.id)
   }
 }
 

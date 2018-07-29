@@ -29,4 +29,17 @@ router.delete('/:id', passport.authenticate("jwt", { session: false }), (req, re
   }).catch(err=>res.status(404).json({homenotfound: 'No home found'}))
 })
 
+// @route UPDATE api/profile/:id
+// @desc update home by id
+// @access private
+router.put('/:id', passport.authenticate("jwt", { session: false }), (req, res)=>{
+  console.log(req.body);
+  Home.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}).then(home=>{
+    if(!home){
+      return res.status(404).end();
+    }
+    return res.json(home);
+  }).catch(err => console.log(err));
+})
+
 module.exports = router;

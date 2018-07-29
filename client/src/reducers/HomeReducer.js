@@ -3,6 +3,7 @@ import {
   UPDATE_HOME, 
   GET_HOMES, 
   GET_HOME,
+  SEARCHED_HOMES,
   HOME_LOADING
 } from '../constants/constants';
 
@@ -35,10 +36,13 @@ export const HomeReducer = (state=initialState, action)=>{
         ...state,
         home: action.payload,
         loading: false
-      }
-    case UPDATE_HOME:
-      return[...state.filter(home=>home.id !== action.payload.id), Object.assign({}, action.payload)];
-
+      };
+    case SEARCHED_HOMES:
+    return{
+      ...state,
+      homes: action.payload,
+      loading: false
+    }
 
 
     default:

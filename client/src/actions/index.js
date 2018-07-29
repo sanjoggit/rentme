@@ -5,7 +5,8 @@ import {
   GET_HOME_BY_USER, 
   UPDATE_HOME, 
   DELETE_HOME, 
-  GET_ERRORS, 
+  GET_ERRORS,
+  SEARCHED_HOMES, 
   SET_CURRENT_USER, 
   HOME_LOADING
 } from '../constants/constants';
@@ -69,17 +70,26 @@ export const getUserHome = ()=>dispatch=>{
 }
 
 
-export const updateHome = (home)=>{
-  return{
+export const updateHome = (id)=>dispatch=>{
+  dispatch(setHomeLoading());
+  axios.put(`/api/profile/${id}`).then(res=>dispatch({
     type: UPDATE_HOME,
-    payload: home
-  }
+    payload: res.data
+  }))
+  .catch(err=>console.log(err));
 }
 
 export const deleteHome = (id)=>dispatch=>{
   axios.delete(`/api/profile/${id}`).then(res=>dispatch({
     type: DELETE_HOME,
-    payload: id
+    payload: res.data
+  })).catch(err=>console.log(err))
+}
+
+export const searchedHomeByCity = (city)=>dispatch=>{
+  axios.get(`/api/posts/${city}`).then(res=>dispatch({
+    type: SEARCHED_HOMES,
+    payload: res.data
   })).catch(err=>console.log(err))
 }
 

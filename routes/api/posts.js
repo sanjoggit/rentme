@@ -38,6 +38,14 @@ router.get('/', (req, res)=>{
     .catch(err=>res.status(404).json({nohomesfound: "No homes found"}));
 })
 
+// @route GET api/posts/:city
+// @desc get posts by city
+// @access public
+router.get('/:city', (req, res)=>{
+  Home.find({city: req.params.city})
+  .then(homes=>res.json(homes))
+  .catch(err=>res.status(404).json({nohomesfound: "No homes found in this city"}))
+})
 // @route GET api/posts/:id
 // @desc get post by id
 // @access public
