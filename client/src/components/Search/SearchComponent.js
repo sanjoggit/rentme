@@ -24,9 +24,6 @@ class SearchComponent extends Component {
     this.setState({city});
   }
   handleSelect = (city)=>{
-    // const cityName = city;
-    // const searchedHomes = this.props.homes.homes.filter(home=>home.city === cityName);
-    // console.log('cities', searchedHomes);
     this.props.searchedHomeByCity(city);
   }
   

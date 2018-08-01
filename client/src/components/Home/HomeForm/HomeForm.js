@@ -15,6 +15,7 @@ import TextInput from './TextInput';
 import TextArea from './TextArea';
 import PlaceInput from './PlaceInput';
 import Script from 'react-load-script';
+import FileInput from './FileInput';
 
 
 const containerStyle = {
@@ -85,7 +86,6 @@ class HomeForm extends Component {
   }
 
   render() {
-    console.log(this.state.addressLatLng);
     const {pristine, submitting, reset} = this.props;
     return (
       <Container style={containerStyle}>
@@ -153,6 +153,15 @@ class HomeForm extends Component {
                         onSelect={this.handleAddressSelect}
                       component={PlaceInput} 
                       />}
+                    <Field 
+                      name="image"                      
+                      dropzone_options={{
+                        multiple: false,
+                        accept: 'image/*',
+                        name: 'image'
+                      }}
+                      component= {FileInput}
+                    />
                     <Field 
                       label="Description"
                       name="description"

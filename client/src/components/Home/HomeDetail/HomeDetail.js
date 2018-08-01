@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Grid, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { deleteHome, getHome } from '../../../actions/index';
 import HomeDetailInfo from './HomeDetailInfo';
 import HomeDetailHeader from './HomeDetailHeader';
@@ -15,14 +14,12 @@ class HomeDetail extends Component {
 
   render() {
     const home = this.props.homes.home;
-    const {isAuthenticated} = this.props.auth;    
+    const {isAuthenticated} = this.props.auth;
     return (
       <Container>
         <Grid>
           <Grid.Column width={10}>
-            <Button content="Back" onClick={()=>this.props.history.push('/')} />
-            {/* {isAuthenticated && <Button content="Delete" color="red" floated="right" onClick={()=>this.handleDelete(home._id)} />}
-            {isAuthenticated && <Button content="Edit" color="green" floated='right' as={Link} to={`/edit/${home._id}`} />} */}
+            <Button content="Back" onClick={()=>this.props.history.push('/')} />            
             <HomeDetailHeader home={home} />
             <HomeDetailInfo home={home} />
           </Grid.Column>

@@ -82,12 +82,12 @@ export const updateHome = (id)=>dispatch=>{
 export const deleteHome = (id)=>dispatch=>{
   axios.delete(`/api/profile/${id}`).then(res=>dispatch({
     type: DELETE_HOME,
-    payload: res.data
+    payload: id
   })).catch(err=>console.log(err))
 }
 
 export const searchedHomeByCity = (city)=>dispatch=>{
-  axios.get(`/api/posts/${city}`).then(res=>dispatch({
+  axios.get(`/api/posts/place/${city}`).then(res=>dispatch({
     type: SEARCHED_HOMES,
     payload: res.data
   })).catch(err=>console.log(err))
