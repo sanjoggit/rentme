@@ -14,7 +14,6 @@ class HomeDetail extends Component {
 
   render() {
     const home = this.props.homes.home;
-    const {isAuthenticated} = this.props.auth;
     return (
       <Container>
         <Grid>

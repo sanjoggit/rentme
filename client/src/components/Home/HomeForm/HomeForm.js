@@ -41,7 +41,8 @@ class HomeForm extends Component {
     this.state = {
       scriptLoaded: false,
       cityLatLng: {},
-      addressLatLng: {}
+      addressLatLng: {},
+      files: []
     }
   }
 
@@ -70,22 +71,34 @@ class HomeForm extends Component {
       this.props.change('address', selectedAddress)
     }).catch(err=>console.log(err));
   }
+  handleDrop = (files, rejectedFiles)=>{
+    this.setState({
+      files
+    }) 
+  
+  }
 
   handleSubmit = (values)=>{
+    const fd = new FormData();
+    fd.append('homeImage', this.state.files[0]);
     values.addressLatLng = this.state.addressLatLng;
     if(values._id){
-      this.props.updateHome(values._id);
+      this.props.updateHome(this.props.match.params.id, values);
     } else{
+      Object.entries(values).forEach((keyValue) => fd.append(...keyValue))
+      fd.set('addressLatLng', JSON.stringify(this.state.addressLatLng))
       const newHome = {
         ...values,
-        addressLatLng: this.state.addressLatLng
+        addressLatLng: this.state.addressLatLng,
+        homeImage: fd
       }
-    this.props.addHome(newHome);
+    this.props.addHome(fd);
     }    
     this.props.history.push('/');
   }
 
   render() {
+    console.log(this.state.files[0]);
     const {pristine, submitting, reset} = this.props;
     return (
       <Container style={containerStyle}>
@@ -160,6 +173,7 @@ class HomeForm extends Component {
                         accept: 'image/*',
                         name: 'image'
                       }}
+                      handleDrop= {this.handleDrop}
                       component= {FileInput}
                     />
                     <Field 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Segment, Grid, Header, Button } from 'semantic-ui-react';
+import { Form, Segment, Grid, Header, Button, Divider } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/index';
+import { loginWithGoogle } from '../../actions/index';
 import {
   combineValidators,
   isRequired,
@@ -32,6 +33,9 @@ class RegisterForm extends Component {
   handleSubmit = (values)=>{    
     this.props.loginUser(values, this.props.history);
   }
+  googleClick = ()=>{
+    this.props.loginWithGoogle();
+  }
   render() {
     const {pristine, submitting, errors} = this.props;
     return (
@@ -56,7 +60,10 @@ class RegisterForm extends Component {
             /> {errors ? <span style={errorStyle}>{errors.password}</span> : ''}
             <Button content="Login" color="green" fluid disabled={pristine || submitting} />
           </Form>
+          
           </Segment>
+          <Divider horizontal>Or</Divider>
+          <Button icon="google" content="Login with Google" color="green" fluid onClick={this.googleClick} />
         </Grid.Column>
       </Grid>
     )
@@ -70,4 +77,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {loginUser})(reduxForm({form: 'registerForm', validate})(RegisterForm));
+export default connect(mapStateToProps, {loginUser, loginWithGoogle})(reduxForm({form: 'registerForm', validate})(RegisterForm));

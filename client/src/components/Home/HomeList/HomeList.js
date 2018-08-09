@@ -16,6 +16,7 @@ class HomeList extends Component {
 
   render() {
     const {homes, loading} = this.props.homes;
+    console.log('home list', homes)
     let homeContent;
     if(homes === null || loading){
       homeContent = <Loading />
@@ -23,7 +24,7 @@ class HomeList extends Component {
       homeContent = homes.map(home=>(    
         <Grid.Column key={home._id}>  
             <Card >
-              <Image src="/assets/homes/home1.png" />
+              <Image src={home.homeImage} />
               <Card.Content>
                 <Card.Meta>
                   <span>Added on {format(home.date, "dddd Do MMMM YYYY")}</span>

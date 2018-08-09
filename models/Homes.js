@@ -38,6 +38,9 @@ const HomeSchema = new Schema({
   addressLatLng: {
     type: Map,
     of: Number
+  },
+  homeImage: {
+    type: String
   }
 })
 

@@ -37,11 +37,23 @@ router.post('/register', (req, res)=>{
         bcrypt.hash(newUser.password, salt, (err, hash)=>{
           if(err) throw err;
           newUser.password = hash;
-          newUser.save().then(user=>res.json(user)).catch(err=>console.log(err));
+          newUser.save(
+            (err)=> {
+              if (err) {
+                if (err.name === 'MongoError' && err.code === 11000) {
+                  // Duplicate username
+                  return res.status(500).json({ succes: false, username: 'Username already exist!' });
+                }          
+              }
+              res.json({
+                success: true
+              });
+            }
+          )
         })
       })
     }
-  });
+  })
 })
 
 // @route GET api/users/login

@@ -4,7 +4,8 @@ import {
   GET_HOME,
   GET_HOME_BY_USER, 
   UPDATE_HOME, 
-  DELETE_HOME, 
+  DELETE_HOME,
+  LOGINWITHGOOGLE, 
   GET_ERRORS,
   SEARCHED_HOMES, 
   SET_CURRENT_USER, 
@@ -50,8 +51,8 @@ export const getHome = (id)=>dispatch=>{
     payload: res.data
   }))
   .catch(err=> dispatch({
-    type: GET_ERRORS,
-    payload: err.response.data
+    type: GET_HOMES,
+    payload: null
   }));
 }
 
@@ -70,9 +71,9 @@ export const getUserHome = ()=>dispatch=>{
 }
 
 
-export const updateHome = (id)=>dispatch=>{
+export const updateHome = (id, values)=>dispatch=>{
   dispatch(setHomeLoading());
-  axios.put(`/api/profile/${id}`).then(res=>dispatch({
+  axios.put(`/api/profile/${id}`, values).then(res=> console.log('res', res) || dispatch({
     type: UPDATE_HOME,
     payload: res.data
   }))
@@ -103,16 +104,21 @@ export const setHomeLoading = ()=>{
 
 //Register User
 export const registerUser = (user, history)=>dispatch=>{
+  console.log('tst')
   axios.post('/api/users/register', user)
-  .then(res=> {toastr.success('Success!', 'Successfully Registered');
+  .then(res=> {
+    toastr.success('Success!', 'Successfully Registered');
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    })
     history.push('/login');
     }
   )    
-  .catch(err=> dispatch({
+  .catch(err=> console.log('err', err) ||dispatch({
     type: GET_ERRORS,
     payload: err.response.data
-  }));
-  return {type: GET_ERRORS, payload: user} 
+  })); 
 }
 
 //Login-Get User Token
@@ -154,3 +160,10 @@ export const logoutUser = ()=>dispatch=>{
   dispatch(setCurrentUser({}));
 }
 
+/*************Log in with google *********************/
+export const loginWithGoogle = ()=>dispatch=>{
+  axios.get('http://localhost:5000/api/auth/google').then(res=>dispatch({
+    type: LOGINWITHGOOGLE,
+    payload: res.data
+  }))
+}

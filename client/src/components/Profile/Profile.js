@@ -18,7 +18,7 @@ class Profile extends Component {
     const profileHomes = this.props.profile.profileHomes.map(home=>(
        <Item.Group key={home._id}>
         <Item>
-          <Item.Image src="/assets/homes/home1.png" />
+          <Item.Image src={home.homeImage} />
           <Item.Content>
             <Item.Header as='a'>{home.address}</Item.Header>
             <Item.Description>

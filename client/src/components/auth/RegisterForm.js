@@ -65,7 +65,7 @@ class RegisterForm extends Component {
               type="text"
               component={TextInput}
               placeholder="Known as" 
-            />
+            />{errors ? <span style={errorStyle}>{errors.username}</span> : 'null'}
             <Field
               icon="mail"
               name="email" 

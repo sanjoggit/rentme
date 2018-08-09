@@ -1,6 +1,5 @@
 import { 
   ADD_HOME, 
-  UPDATE_HOME, 
   GET_HOMES, 
   GET_HOME,
   SEARCHED_HOMES,

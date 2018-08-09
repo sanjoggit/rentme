@@ -10,10 +10,11 @@ const homeImageStyle = {
 class HomeDetailHeader extends Component {
   render() {
     const {home} = this.props;
+    console.log('home detail', home.homeImage)
     return (
       <Segment.Group>
         <Segment>
-          <Image src="/assets/homes/home1.png" style={homeImageStyle} />
+          <Image src={home.homeImage} style={homeImageStyle} />
           <Segment basic clearing>
             <Header as='h3' floated='right'>
               Rs. {home.price}/month
