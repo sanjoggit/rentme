@@ -81,24 +81,20 @@ class HomeForm extends Component {
   handleSubmit = (values)=>{
     const fd = new FormData();
     fd.append('homeImage', this.state.files[0]);
-    values.addressLatLng = this.state.addressLatLng;
     if(values._id){
       this.props.updateHome(this.props.match.params.id, values);
     } else{
-      Object.entries(values).forEach((keyValue) => fd.append(...keyValue))
-      fd.set('addressLatLng', JSON.stringify(this.state.addressLatLng))
-      const newHome = {
-        ...values,
-        addressLatLng: this.state.addressLatLng,
-        homeImage: fd
-      }
+      Object.entries(values).forEach(([key, value]) => fd.append(key, value))
+      //can be done like this also by passing the object
+      //fd.append('addressLatLng', JSON.stringify(this.state.addressLatLng))
+      fd.append('lat', this.state.addressLatLng.lat);
+      fd.append('lng', this.state.addressLatLng.lng);
     this.props.addHome(fd);
     }    
     this.props.history.push('/');
   }
 
   render() {
-    console.log(this.state.files[0]);
     const {pristine, submitting, reset} = this.props;
     return (
       <Container style={containerStyle}>
@@ -175,7 +171,7 @@ class HomeForm extends Component {
                       }}
                       handleDrop= {this.handleDrop}
                       component= {FileInput}
-                    />
+                    />{this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)}
                     <Field 
                       label="Description"
                       name="description"

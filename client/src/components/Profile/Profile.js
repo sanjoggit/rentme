@@ -24,9 +24,9 @@ class Profile extends Component {
             <Item.Description>
               <p>Floor: {home.floor}</p>
               <p>Price: {home.price}</p>
-              <Button content="View" as={Link} to={`/home/${home._id}`} color="blue" />
-              <Button content="Edit" as={Link} to={`/edit/${home._id}`} color="green" />
-              <Button content="Delete" color="red" onClick={()=>this.handleDelete(home._id)} />
+              <Button content="View" basic as={Link} to={`/home/${home._id}`} color="blue" />
+              <Button content="Edit" basic as={Link} to={`/edit/${home._id}`} color="green" />
+              <Button content="Delete" basic color="red" onClick={()=>this.handleDelete(home._id)} />
             </Item.Description>
           </Item.Content>
         </Item>

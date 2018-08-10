@@ -6,7 +6,10 @@ import { getHomes } from '../../../actions/index';
 import format from 'date-fns/format';
 import Loading from '../../../common/Loading';
 
-
+const homeImageStyle = {
+  height: '35vh',
+  objectFit: 'cover'
+};
 
 class HomeList extends Component {
 
@@ -16,7 +19,6 @@ class HomeList extends Component {
 
   render() {
     const {homes, loading} = this.props.homes;
-    console.log('home list', homes)
     let homeContent;
     if(homes === null || loading){
       homeContent = <Loading />
@@ -24,7 +26,7 @@ class HomeList extends Component {
       homeContent = homes.map(home=>(    
         <Grid.Column key={home._id}>  
             <Card >
-              <Image src={home.homeImage} />
+              <Image src={home.homeImage} style={homeImageStyle} />
               <Card.Content>
                 <Card.Meta>
                   <span>Added on {format(home.date, "dddd Do MMMM YYYY")}</span>

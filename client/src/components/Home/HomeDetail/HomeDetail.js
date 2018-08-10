@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { deleteHome, getHome } from '../../../actions/index';
 import HomeDetailInfo from './HomeDetailInfo';
 import HomeDetailHeader from './HomeDetailHeader';
+import HomeDetailMap from './HomeDetailMap';
 
 
 class HomeDetail extends Component {
@@ -16,14 +17,14 @@ class HomeDetail extends Component {
     const home = this.props.homes.home;
     return (
       <Container>
+      <Button content="Back" onClick={()=>this.props.history.push('/')} />   
         <Grid>
-          <Grid.Column width={10}>
-            <Button content="Back" onClick={()=>this.props.history.push('/')} />            
+          <Grid.Column width={9}>
             <HomeDetailHeader home={home} />
             <HomeDetailInfo home={home} />
           </Grid.Column>
-          <Grid.Column width={6}>
-            <h1>For last viewed</h1>
+          <Grid.Column width={7}>
+            <HomeDetailMap lat={home.lat} lng={home.lng} />
           </Grid.Column> 
         </Grid>         
       </Container>

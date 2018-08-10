@@ -10,7 +10,6 @@ const homeImageStyle = {
 class HomeDetailHeader extends Component {
   render() {
     const {home} = this.props;
-    console.log('home detail', home.homeImage)
     return (
       <Segment.Group>
         <Segment>

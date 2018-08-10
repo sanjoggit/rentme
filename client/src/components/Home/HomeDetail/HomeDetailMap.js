@@ -9,7 +9,7 @@ const HomeDetailMap = ({lat, lng}) => {
   const zoom = 14;
   return (
     <Segment style={{padding: 0}}>
-      <div style={{ height: '300px', width: '100%' }}>
+      <div style={{ height: '400px', width: '100%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyBixMPuzcI8hePeazSW-JLu5QSHy986i0s" }}
             defaultCenter={center}

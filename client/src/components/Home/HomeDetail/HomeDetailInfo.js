@@ -1,21 +1,9 @@
 import React, { Component } from 'react'
-import { Segment, Button, Icon, Grid } from 'semantic-ui-react';
+import { Segment, Icon, Grid } from 'semantic-ui-react';
 import format from 'date-fns/format';
-import HomeDetailMap from './HomeDetailMap';
 
 class HomeDetailInfo extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      showMap: false
-    }
-  }
 
-  showMapToggle = ()=>{
-    this.setState({
-      showMap: !this.state.showMap
-    })
-  }
   render() {
     const {home} = this.props;
     return (
@@ -49,7 +37,7 @@ class HomeDetailInfo extends Component {
             {home.rooms} Rooms
           </Grid.Column>
           <Grid.Column width={2}>
-            {home.floor} Floor
+          Floor {home.floor} 
           </Grid.Column>
         </Grid>
       </Segment>
@@ -70,14 +58,9 @@ class HomeDetailInfo extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             {home.address}
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <Button onClick={this.showMapToggle} floated="right" color={'green'}>{this.state.showMap ? 'Hide Map' : 'Show Map'}</Button>  
-          </Grid.Column>
+          </Grid.Column>          
         </Grid>
-      </Segment>
-      {this.state.showMap &&
-      <HomeDetailMap lat={home.addressLatLng.lat} lng={home.addressLatLng.lng} />}
+      </Segment>      
     </Segment.Group>
     )
   }

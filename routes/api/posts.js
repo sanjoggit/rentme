@@ -33,19 +33,6 @@ router.get('/test', (req, res)=>res.json({name: 'sanjog'}));
 // @desc create posts 
 // @access private
 router.post('/', upload.single('homeImage'), passport.authenticate("jwt", { session: false }), (req, res)=>{
-  console.log({
-    user: req.user.id,
-    title: req.body.title,
-    price: req.body.price,
-    rooms: req.body.rooms,
-    floor: req.body.floor,
-    phone: req.body.phone,
-    city: req.body.city,
-    address: req.body.address,
-    description: req.body.description,
-    addressLatLng: req.body.addressLatLng,
-    homeImage: req.file.path
-  })
   const newPost = new Home({
     user: req.user.id,
     title: req.body.title,
@@ -56,7 +43,9 @@ router.post('/', upload.single('homeImage'), passport.authenticate("jwt", { sess
     city: req.body.city,
     address: req.body.address,
     description: req.body.description,
-    addressLatLng: JSON.parse(req.body.addressLatLng),
+    //addressLatLng: JSON.parse(req.body.addressLatLng), can be done like this also but not a good way
+    lat: req.body.lat,
+    lng: req.body.lng,
     homeImage: req.file.path
   });
   newPost.save().then(post=>res.json(post)).catch(err=>console.log(err));

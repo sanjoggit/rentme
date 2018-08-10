@@ -35,9 +35,16 @@ const HomeSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  addressLatLng: {
-    type: Map,
-    of: Number
+  //can be done like this also
+  // addressLatLng: {
+  //   type: Map,
+  //   of: Number
+  // },
+  lat: {
+    type: Number
+  },
+  lng: {
+    type: Number
   },
   homeImage: {
     type: String
