@@ -3,7 +3,14 @@ const router = express.Router();
 const Home = require('../../models/Homes');
 const passport = require('passport');
 const multer  = require('multer');
+const cloudinary = require('cloudinary');
+const keys = require('../../config/keys');
 
+cloudinary.config({
+  cloud_name: keys.cloud_name,
+  api_key: keys.api_key,
+  api_secret: keys.api_secret
+})
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -33,23 +40,26 @@ router.get('/test', (req, res)=>res.json({name: 'sanjog'}));
 // @desc create posts 
 // @access private
 router.post('/', upload.single('homeImage'), passport.authenticate("jwt", { session: false }), (req, res)=>{
-  const newPost = new Home({
-    user: req.user.id,
-    title: req.body.title,
-    price: req.body.price,
-    rooms: req.body.rooms,
-    floor: req.body.floor,
-    phone: req.body.phone,
-    city: req.body.city,
-    address: req.body.address,
-    description: req.body.description,
-    //addressLatLng: JSON.parse(req.body.addressLatLng), can be done like this also but not a good way
-    lat: req.body.lat,
-    lng: req.body.lng,
-    homeImage: req.file.path
+  cloudinary.uploader.upload(req.file.path, result=>{
+    const newPost = new Home({
+      user: req.user.id,
+      title: req.body.title,
+      price: req.body.price,
+      rooms: req.body.rooms,
+      floor: req.body.floor,
+      phone: req.body.phone,
+      city: req.body.city,
+      address: req.body.address,
+      description: req.body.description,
+      //addressLatLng: JSON.parse(req.body.addressLatLng), can be done like this also but not a good way
+      lat: req.body.lat,
+      lng: req.body.lng,
+      homeImage: req.file.path
+    });
+    newPost.save().then(post=>res.json(post)).catch(err=>console.log(err));
   });
-  newPost.save().then(post=>res.json(post)).catch(err=>console.log(err));
-});
+  })
+ 
 
 // @route GET api/posts
 // @desc get posts 

@@ -12,7 +12,7 @@ const HomeDetailMap = ({lat, lng}) => {
       <div style={{ height: '400px', width: '100%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: "AIzaSyBixMPuzcI8hePeazSW-JLu5QSHy986i0s" }}
-            defaultCenter={center}
+            center={center}
             defaultZoom={zoom}
           >
             <Marker
