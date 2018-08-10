@@ -2,6 +2,9 @@
   "name": "rentme",
   "version": "1.0.0",
   "description": "rent anything",
+  "engines": {
+    "node": "8.9.4"
+  },
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
