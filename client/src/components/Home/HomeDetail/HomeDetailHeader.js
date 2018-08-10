@@ -13,7 +13,7 @@ class HomeDetailHeader extends Component {
     return (
       <Segment.Group>
         <Segment>
-          <Image src={home.homeImage} style={homeImageStyle} />
+          <Image src={'/' + home.homeImage} style={homeImageStyle} />
           <Segment basic clearing>
             <Header as='h3' floated='right'>
               Rs. {home.price}/month
