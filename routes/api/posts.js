@@ -31,10 +31,6 @@ const fileFilter = (req, file, cb)=>{
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-// @route GET api/posts/test
-// @desc Tests posts route
-// @access Public
-router.get('/test', (req, res)=>res.json({name: 'sanjog'}));
 
 // @route POST api/posts
 // @desc create posts 

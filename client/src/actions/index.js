@@ -21,21 +21,26 @@ import { toastr } from 'react-redux-toastr';
 //add Home
 export const addHome = (home)=>dispatch=>{
   axios.post('/api/posts', home)
-  .then(res=>dispatch({
+  .then(res=>{
+    toastr.success('Success!', 'new home added')
+    dispatch({
     type: ADD_HOME,
     payload: res.data
-  }))
+  })
+  })
   .catch(err=>console.log(err))
 }
 
 //get Homes
-export const getHomes = ()=>dispatch=>{
+export const getHomes = ()=>dispatch=>{  
   dispatch(setHomeLoading());
   axios.get('/api/posts')
-  .then(res=>dispatch({
-    type: GET_HOMES,
-    payload: res.data
-  }))
+  .then(res=>{
+    dispatch({
+      type: GET_HOMES,
+      payload: res.data
+    })
+  })
   .catch(err=>dispatch({
     type: GET_HOMES,
     payload: null
@@ -81,10 +86,13 @@ export const updateHome = (id, values)=>dispatch=>{
 }
 
 export const deleteHome = (id)=>dispatch=>{
-  axios.delete(`/api/profile/${id}`).then(res=>dispatch({
-    type: DELETE_HOME,
-    payload: id
-  })).catch(err=>console.log(err))
+  axios.delete(`/api/profile/${id}`).then(res=>{
+    toastr.success('Success!', 'home deleted');
+    dispatch({
+      type: DELETE_HOME,
+      payload: id
+    })
+  }).catch(err=>console.log(err))
 }
 
 export const searchedHomeByCity = (city)=>dispatch=>{
@@ -104,7 +112,6 @@ export const setHomeLoading = ()=>{
 
 //Register User
 export const registerUser = (user, history)=>dispatch=>{
-  console.log('tst')
   axios.post('/api/users/register', user)
   .then(res=> {
     toastr.success('Success!', 'Successfully Registered');

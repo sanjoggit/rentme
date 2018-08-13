@@ -107,6 +107,7 @@ class HomeForm extends Component {
             <Segment>
               <Form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
                   <Field
+                    icon=""
                       label="Title"
                       name="title" 
                       type="text"
