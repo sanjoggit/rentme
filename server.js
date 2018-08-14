@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 //connection to MongoDB
 mongoose
-  .connect(keys.mongoDBConnect || process.env.MONGODB_USERNAME)
+  .connect(keys.mongoDBConnect || process.env.MONGODB_CONNECT)
   .then(()=>console.log('MongoDB Connected'))
   .catch(err=>console.log(err));
 
