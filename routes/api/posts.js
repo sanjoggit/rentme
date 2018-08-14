@@ -84,8 +84,4 @@ router.get('/:id', (req, res)=>{
     .catch(err=>res.status(404).json({nohomefound: "No homes found with that id"}));
 })
 
-
-
-
-
 module.exports = router;
