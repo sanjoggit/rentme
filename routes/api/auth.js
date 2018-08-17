@@ -16,7 +16,7 @@ router.get('/google/callback',
   (req, res)=> {
     console.log('test')
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('https://glacial-hamlet-49682.herokuapp.com/');
   });
 
 // @route GET api/auth/verify

@@ -169,7 +169,7 @@ export const logoutUser = ()=>dispatch=>{
 
 /*************Log in with google *********************/
 export const loginWithGoogle = ()=>dispatch=>{
-  axios.get('http://localhost:5000/api/auth/google').then(res=>dispatch({
+  axios.get('/api/auth/google').then(res=>dispatch({
     type: LOGINWITHGOOGLE,
     payload: res.data
   }))
