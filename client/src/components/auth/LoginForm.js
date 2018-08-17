@@ -33,9 +33,9 @@ class RegisterForm extends Component {
   handleSubmit = (values)=>{    
     this.props.loginUser(values, this.props.history);
   }
-  googleClick = ()=>{
-    this.props.loginWithGoogle();
-  }
+  // googleClick = ()=>{
+  //   this.props.loginWithGoogle();
+  // }
   render() {
     const {pristine, submitting, errors} = this.props;
     return (
@@ -63,7 +63,8 @@ class RegisterForm extends Component {
           
           </Segment>
           <Divider horizontal>Or</Divider>
-          <Button icon="google" content="Login with Google" color="green" fluid onClick={this.googleClick} />
+          {/* <Button icon="google" content="Login with Google" color="green" fluid onClick={this.googleClick} /> */}
+          <a href='/api/auth/google'>login with google</a>
         </Grid.Column>
       </Grid>
     )

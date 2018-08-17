@@ -12,11 +12,11 @@ router.get('/google', passport.authenticate('google', {
 
 // @route GET api/auth/google/callback 
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res)=> {
     console.log('test')
     // Successful authentication, redirect home.
-    res.redirect('https://glacial-hamlet-49682.herokuapp.com/');
+    res.redirect('/');
   });
 
 // @route GET api/auth/verify
