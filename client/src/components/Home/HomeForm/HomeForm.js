@@ -107,21 +107,23 @@ class HomeForm extends Component {
             <Segment>
               <Form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
                   <Field
-                    icon=""
+                      icon="text width"
                       label="Title"
                       name="title" 
                       type="text"
                       component={TextInput}
                       placeholder="Write in one sentence about your home" 
                       />
-                    <Field 
+                    <Field
+                      icon="money bill alternate" 
                       label="Price (In Rs.)"
                       type="number" 
                       name="price"
                       component={TextInput} 
                       placeholder="Rent for per month" 
                       />
-                    <Field 
+                    <Field
+                      icon="home" 
                       label="No. of Rooms"
                       type="number" 
                       name="rooms"
@@ -129,6 +131,7 @@ class HomeForm extends Component {
                       placeholder="Write the number of rooms available" 
                       />
                     <Field
+                      icon="building"
                       label="Floor" 
                       type="number" 
                       name="floor"
@@ -136,13 +139,15 @@ class HomeForm extends Component {
                       placeholder="Write in which floor the rooms are available" 
                       />
                     <Field
+                      icon="phone"
                       label="Phone" 
                       name="phone"
                       component={TextInput} 
                       placeholder="Enter phone number" 
                       />
                       
-                    <Field 
+                    <Field
+                      icon="map" 
                       label="City"
                       name="city" 
                       placeholder="City"
@@ -152,6 +157,7 @@ class HomeForm extends Component {
                       />
                     {this.state.scriptLoaded &&
                     <Field
+                      icon="map marker alternate"
                       label="Address" 
                       name="address" 
                       placeholder="Address"

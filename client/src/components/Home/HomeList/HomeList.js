@@ -33,7 +33,7 @@ class HomeList extends Component {
                 </Card.Meta>
               </Card.Content>
               <Card.Content>
-                <Icon name="map marker" />{home.city}
+                <Icon name="map marker alternate" />{home.city}
               </Card.Content>
               <Card.Content>
                 <Icon name="money" />{home.price} per month

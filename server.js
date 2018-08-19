@@ -43,10 +43,10 @@ app.use(session({
 app.use(passport.session());
 
 //Set global vars
-// app.use((req, res, next)=>{
-//   res.locals.user = req.user || null;
-//   next();
-// })
+app.use((req, res, next)=>{
+  res.locals.user = req.user || null;
+  next();
+})
 
 
 

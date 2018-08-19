@@ -5,7 +5,7 @@ import {
   GET_HOME_BY_USER, 
   UPDATE_HOME, 
   DELETE_HOME,
-  LOGINWITHGOOGLE, 
+  GOOGLELOGGEDIN, 
   GET_ERRORS,
   SEARCHED_HOMES, 
   SET_CURRENT_USER, 
@@ -168,9 +168,9 @@ export const logoutUser = ()=>dispatch=>{
 }
 
 /*************Log in with google *********************/
-export const loginWithGoogle = ()=>dispatch=>{
-  axios.get('/api/auth/google').then(res=>dispatch({
-    type: LOGINWITHGOOGLE,
+export const googleLoggedIn = ()=>dispatch=>{
+  axios.get('/api/auth/verify').then(res=>dispatch({
+    type: GOOGLELOGGEDIN,
     payload: res.data
   }))
 }

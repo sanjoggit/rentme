@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Form, Segment, Container } from 'semantic-ui-react';
+import { Label, Form, Segment, Container, Input } from 'semantic-ui-react';
 import Script from 'react-load-script';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
@@ -19,13 +19,15 @@ class PlaceInput extends Component {
     }) 
   }
   render() {
-    const { label, placeholder, searchOptions, onSelect, meta:{touched, error}} = this.props;
+    const { label, icon, placeholder, searchOptions, onSelect, meta:{touched, error}} = this.props;
     const renderFunc = ({ getInputProps, suggestions, getSuggestionItemProps, loading })=>(
       <div>
-        <input
+        <Input
             {...getInputProps({                  
             placeholder
             })}
+            icon={icon}
+            iconPosition="left" 
         />
         <Container>
         {loading && <div>Loading...</div>}

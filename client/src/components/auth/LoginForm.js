@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Form, Segment, Grid, Header, Button, Divider } from 'semantic-ui-react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/index';
-import { loginWithGoogle } from '../../actions/index';
+import { loginUser, googleLoggedIn } from '../../actions/index';
 import {
   combineValidators,
   isRequired,
@@ -33,9 +32,10 @@ class RegisterForm extends Component {
   handleSubmit = (values)=>{    
     this.props.loginUser(values, this.props.history);
   }
-  // googleClick = ()=>{
-  //   this.props.loginWithGoogle();
-  // }
+  googleClick = ()=>{
+    this.props.googleLoggedIn();
+    console.log('hello');
+  }
   render() {
     const {pristine, submitting, errors} = this.props;
     return (
@@ -62,9 +62,9 @@ class RegisterForm extends Component {
           </Form>
           
           </Segment>
-          <Divider horizontal>Or</Divider>
+          {/* <Divider horizontal>Or</Divider> */}
           {/* <Button icon="google" content="Login with Google" color="green" fluid onClick={this.googleClick} /> */}
-          <a href='/api/auth/google'>login with google</a>
+          {/* <a href='http://localhost:5000/api/auth/google' onClick={this.googleClick}>login with google</a> */}
         </Grid.Column>
       </Grid>
     )
@@ -78,4 +78,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {loginUser, loginWithGoogle})(reduxForm({form: 'registerForm', validate})(RegisterForm));
+export default connect(mapStateToProps, {loginUser, googleLoggedIn})(reduxForm({form: 'registerForm', validate})(RegisterForm));

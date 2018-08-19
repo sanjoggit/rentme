@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const GoogleUser = require('../../models/GoogleUser');
 
 router.get('/test', (req, res)=>{
   res.send('it works');
@@ -14,9 +15,9 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res)=> {
-    console.log('test')
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('http://localhost:3000');
+    console.log(req.user)
   });
 
 // @route GET api/auth/verify
